@@ -1,0 +1,32 @@
+From d39c125a6030c88920f188345fee1d624ac4afe1 Mon Sep 17 00:00:00 2001
+From: Mat Booth <mat.booth@redhat.com>
+Date: Tue, 12 Mar 2019 12:58:38 +0000
+Subject: [PATCH 1/4] Avoid limitation with older shade plug-in versions where
+ it cannot deal with Java 9-style module-info files
+
+---
+ .../org.eclipse.jdt.launching.javaagent/pom.xml           | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/eclipse.jdt.debug/org.eclipse.jdt.launching.javaagent/pom.xml b/eclipse.jdt.debug/org.eclipse.jdt.launching.javaagent/pom.xml
+index 8d32e4fa5..dd76e096a 100644
+--- a/eclipse.jdt.debug/org.eclipse.jdt.launching.javaagent/pom.xml
++++ b/eclipse.jdt.debug/org.eclipse.jdt.launching.javaagent/pom.xml
+@@ -77,6 +77,14 @@
+                 </relocation>
+               </relocations>
+               <finalName>javaagent-shaded</finalName>
++              <filters>
++                <filter>
++                  <artifact>*:*</artifact>
++                  <excludes>
++                    <exclude>**/module-info.class</exclude>
++                  </excludes>
++                </filter>
++              </filters>
+             </configuration>
+           </execution>
+         </executions>
+-- 
+2.26.2
+
