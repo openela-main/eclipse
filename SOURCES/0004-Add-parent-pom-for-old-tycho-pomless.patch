@@ -1,0 +1,31 @@
+From 1373863303582bd46daea47db219506c0fbebcee Mon Sep 17 00:00:00 2001
+From: Mat Booth <mat.booth@redhat.com>
+Date: Wed, 13 May 2020 15:24:34 +0100
+Subject: [PATCH 4/4] Add parent pom for old tycho-pomless
+
+---
+ eclipse.platform.resources/bundles/pom.xml | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+ create mode 100644 eclipse.platform.resources/bundles/pom.xml
+
+diff --git a/eclipse.platform.resources/bundles/pom.xml b/eclipse.platform.resources/bundles/pom.xml
+new file mode 100644
+index 000000000..44a2f411b
+--- /dev/null
++++ b/eclipse.platform.resources/bundles/pom.xml
+@@ -0,0 +1,12 @@
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
++  <modelVersion>4.0.0</modelVersion>
++  <parent>
++    <artifactId>eclipse.platform.resources</artifactId>
++    <groupId>eclipse.platform.resources</groupId>
++    <version>4.16.0-SNAPSHOT</version>
++    <relativePath>..</relativePath>
++  </parent>
++  <groupId>eclipse.platform.resources</groupId>
++  <artifactId>eclipse.platform.resources-bundles</artifactId>
++  <packaging>pom</packaging>
++</project>
+-- 
+2.26.2
+

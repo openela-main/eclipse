@@ -1,0 +1,31 @@
+From 006d5e833eae44aab2514918acfe20f8ab3992d2 Mon Sep 17 00:00:00 2001
+From: Mat Booth <mat.booth@redhat.com>
+Date: Tue, 12 Mar 2019 15:12:37 +0000
+Subject: [PATCH 2/4] Allow bootstrapping against OSGi Core R6
+
+---
+ .../http/servlet/internal/HttpServiceRuntimeImpl.java     | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/rt.equinox.bundles/bundles/org.eclipse.equinox.http.servlet/src/org/eclipse/equinox/http/servlet/internal/HttpServiceRuntimeImpl.java b/rt.equinox.bundles/bundles/org.eclipse.equinox.http.servlet/src/org/eclipse/equinox/http/servlet/internal/HttpServiceRuntimeImpl.java
+index 8d07030b8..530f5bb11 100644
+--- a/rt.equinox.bundles/bundles/org.eclipse.equinox.http.servlet/src/org/eclipse/equinox/http/servlet/internal/HttpServiceRuntimeImpl.java
++++ b/rt.equinox.bundles/bundles/org.eclipse.equinox.http.servlet/src/org/eclipse/equinox/http/servlet/internal/HttpServiceRuntimeImpl.java
+@@ -1341,8 +1341,12 @@ public class HttpServiceRuntimeImpl
+ 		@Override
+ 		public Void call() {
+ 			try {
+-				Dictionary<String,Object> properties = getHsrRegistration().getReference().getProperties();
+-				properties.put(Constants.SERVICE_CHANGECOUNT, getServiceChangecount());
++				Dictionary<String,Object> properties = new Hashtable<String,Object>();
++				String[] keys = getHsrRegistration().getReference().getPropertyKeys();
++				for (String key : keys) {
++					properties.put(key, getHsrRegistration().getReference().getProperty(key));
++				}
++				properties.put("service.changecount", getServiceChangecount());
+ 				getHsrRegistration().setProperties(properties);
+ 				return null;
+ 			}
+-- 
+2.26.2
+
